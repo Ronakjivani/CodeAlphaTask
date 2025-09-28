@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Media Platform</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h2><i class="fas fa-share-alt"></i> SocialConnect</h2>
+            </div>
+            <div class="nav-search">
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Search users...">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="search-results" id="searchResults"></div>
+            </div>
+            <div class="nav-menu">
+                <a href="#" id="homeLink" class="nav-link active">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <a href="#" id="profileLink" class="nav-link">
+                    <i class="fas fa-user"></i> Profile
+                </a>
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-btn">
+                        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=32&h=32&fit=crop&crop=face" alt="Profile" id="navProfilePic" class="nav-profile-pic">
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="nav-dropdown-menu">
+                        <a href="#" id="settingsLink"><i class="fas fa-cog"></i> Settings</a>
+                        <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Authentication Section -->
+        <div class="auth-container" id="authContainer">
+            <div class="auth-card">
+                <div class="auth-header">
+                    <h1><i class="fas fa-share-alt"></i> SocialConnect</h1>
+                    <p>Connect with friends and the world around you</p>
+                </div>
+                
+                <!-- Login Form -->
+                <form id="loginForm" class="auth-form">
+                    <h2>Login</h2>
+                    <div class="form-group">
+                        <input type="email" id="loginEmail" placeholder="Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="loginPassword" placeholder="Password" required>
+                    </div>
+                    <button type="submit" class="btn-primary">Login</button>
+                    <p>Don't have an account? <a href="#" id="showRegister">Register here</a></p>
+                </form>
+
+                <!-- Register Form -->
+                <form id="registerForm" class="auth-form" style="display: none;">
+                    <h2>Register</h2>
+                    <div class="form-group">
+                        <input type="text" id="registerFirstName" placeholder="First Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="registerLastName" placeholder="Last Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="registerUsername" placeholder="Username" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="registerEmail" placeholder="Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="registerPassword" placeholder="Password" required>
+                    </div>
+                    <button type="submit" class="btn-primary">Register</button>
+                    <p>Already have an account? <a href="#" id="showLogin">Login here</a></p>
+                </form>
+            </div>
+        </div>
+
+        <!-- App Content -->
+        <div class="app-container" id="appContainer" style="display: none;">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="sidebar-menu">
+                    <a href="#" id="feedLink" class="sidebar-link active">
+                        <i class="fas fa-home"></i> Feed
+                    </a>
+                    <a href="#" id="myProfileLink" class="sidebar-link">
+                        <i class="fas fa-user"></i> My Profile
+                    </a>
+                    <a href="#" id="followSuggestionsLink" class="sidebar-link">
+                        <i class="fas fa-user-plus"></i> Suggested Users
+                    </a>
+                </div>
+            </aside>
+
+            <!-- Main Feed -->
+            <div class="feed-container">
+                <!-- Create Post -->
+                <div class="create-post-container" id="createPostContainer">
+                    <div class="create-post">
+                        <div class="create-post-header">
+                            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=40&h=40&fit=crop&crop=face" alt="Your Profile" id="createPostProfilePic" class="profile-pic">
+                            <textarea id="postContent" placeholder="What's on your mind?" rows="3"></textarea>
+                        </div>
+                        <div class="create-post-actions">
+                            <div class="post-options">
+                                <select id="postVisibility">
+                                    <option value="public">Public</option>
+                                    <option value="followers">Followers</option>
+                                    <option value="private">Private</option>
+                                </select>
+                            </div>
+                            <button id="createPostBtn" class="btn-primary">Post</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Posts Feed -->
+                <div class="posts-container" id="postsContainer">
+                    <!-- Posts will be loaded here -->
+                </div>
+
+                <!-- Load More Button -->
+                <div class="load-more-container">
+                    <button id="loadMoreBtn" class="btn-secondary" style="display: none;">Load More Posts</button>
+                </div>
+            </div>
+
+            <!-- Right Sidebar -->
+            <aside class="right-sidebar">
+                <div class="suggestions-container">
+                    <h3>Suggested for you</h3>
+                    <div id="suggestedUsers" class="suggested-users">
+                        <!-- Suggested users will be loaded here -->
+                    </div>
+                </div>
+            </aside>
+        </div>
+
+        <!-- Profile View -->
+        <div class="profile-container" id="profileContainer" style="display: none;">
+            <div class="profile-header">
+                <div class="profile-info">
+                    <img id="profilePicture" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=120&h=120&fit=crop&crop=face" alt="Profile Picture" class="profile-picture">
+                    <div class="profile-details">
+                        <div class="profile-name">
+                            <h1 id="profileName">Loading...</h1>
+                            <p id="profileUsername">@loading</p>
+                        </div>
+                        <div class="profile-stats">
+                            <div class="stat">
+                                <span id="postsCount">0</span>
+                                <span>Posts</span>
+                            </div>
+                            <div class="stat">
+                                <span id="followersCount">0</span>
+                                <span>Followers</span>
+                            </div>
+                            <div class="stat">
+                                <span id="followingCount">0</span>
+                                <span>Following</span>
+                            </div>
+                        </div>
+                        <p id="profileBio" class="profile-bio">Loading bio...</p>
+                        <div class="profile-actions">
+                            <button id="followBtn" class="btn-primary" style="display: none;">Follow</button>
+                            <button id="editProfileBtn" class="btn-secondary" style="display: none;">Edit Profile</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="profile-posts">
+                <h3>Posts</h3>
+                <div id="profilePosts" class="posts-container">
+                    <!-- User posts will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modals -->
+    <!-- Edit Profile Modal -->
+    <div class="modal" id="editProfileModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Edit Profile</h3>
+                <span class="close" id="closeEditProfile">&times;</span>
+            </div>
+            <form id="editProfileForm">
+                <div class="form-group">
+                    <label for="editFirstName">First Name</label>
+                    <input type="text" id="editFirstName" required>
+                </div>
+                <div class="form-group">
+                    <label for="editLastName">Last Name</label>
+                    <input type="text" id="editLastName" required>
+                </div>
+                <div class="form-group">
+                    <label for="editBio">Bio</label>
+                    <textarea id="editBio" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="editIsPrivate">
+                        Private Account
+                    </label>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary" id="cancelEditProfile">Cancel</button>
+                    <button type="submit" class="btn-primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Comment Modal -->
+    <div class="modal" id="commentModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Comments</h3>
+                <span class="close" id="closeCommentModal">&times;</span>
+            </div>
+            <div class="comments-container">
+                <div id="commentsContent">
+                    <!-- Comments will be loaded here -->
+                </div>
+                <div class="add-comment">
+                    <textarea id="newCommentContent" placeholder="Write a comment..." rows="2"></textarea>
+                    <button id="addCommentBtn" class="btn-primary">Comment</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div class="toast" id="toast">
+        <span id="toastMessage"></span>
+        <span class="toast-close" onclick="hideToast()">&times;</span>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
